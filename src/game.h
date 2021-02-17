@@ -12,6 +12,7 @@
 #include "graphics.h"
 #include "input.h"
 #include "player.h"
+#include "level.h"
 
 class Graphics;
 
@@ -25,6 +26,7 @@ private:
 	void update(float elapsedTime);
 
 	Player player_;
+	Level level_;
 };
 
 
