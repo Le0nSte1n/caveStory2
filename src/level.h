@@ -22,7 +22,10 @@ public:
 private:
 	std::string mapName_;
 	Vector2 spawnPoint_;
+
 	Vector2 size_;
+	Vector2 tileSize_;
+
 	SDL_Texture* backgroundTexture_;
 
 	/* void loadMap
@@ -31,6 +34,21 @@ private:
 	 */
 	void loadMap(std::string mapName, Graphics& graphics);
 
+};
+
+// Tileset structure
+struct Tileset{
+	SDL_Texture* Texture;
+	int FirstGid;	// the first number of the tileset
+
+	Tileset() {
+		FirstGid = -1;
+	}
+
+	Tileset(SDL_Texture* texture, int firstGid) {
+		Texture = texture;
+		FirstGid = firstGid;
+	}
 };
 
 #endif // !LEVEL_H
