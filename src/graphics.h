@@ -8,6 +8,7 @@
  * Hold all information dealing with graphics for the game
  */
 
+#include "globals.h"
 #include <map>
 #include <string>
 #include <SDL.h>

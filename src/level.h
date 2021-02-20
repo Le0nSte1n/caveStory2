@@ -4,6 +4,17 @@
 
 #include "graphics.h"
 #include "globals.h"
+#include "tile.h"
+#include "tinyxml2.h"
+
+#include <sstream>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+using namespace tinyxml2;
+
+struct Tileset;
 
 class Level {
 public:
@@ -27,6 +38,9 @@ private:
 	Vector2 tileSize_;
 
 	SDL_Texture* backgroundTexture_;
+
+	std::vector<Tile> tileList_;
+	std::vector<Tileset> tilesets_;
 
 	/* void loadMap
 	 * Loads a map

@@ -5,6 +5,7 @@
 #include "graphics.h"
 #include "globals.h"
 
+
 class Tile{
 public:
 	Tile();

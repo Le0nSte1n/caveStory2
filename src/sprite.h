@@ -10,6 +10,7 @@
 #include <string>
 
 #include "graphics.h"
+#include "globals.h"
 
 class Sprite{
 public:

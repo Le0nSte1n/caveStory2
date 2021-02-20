@@ -1,5 +1,4 @@
 #include "sprite.h"
-#include "globals.h"
 
 Sprite::Sprite() {
 

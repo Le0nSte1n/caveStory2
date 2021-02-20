@@ -1,9 +1,9 @@
 #include "graphics.h"
 
-#include "globals.h"
+
 
 Graphics::Graphics() {
-	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_WIDTH, 0, &window_, &renderer_);
+	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0, &window_, &renderer_);
 	SDL_SetWindowTitle(window_, "CaveStory");
 }
 
