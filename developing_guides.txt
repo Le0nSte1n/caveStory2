@@ -1,0 +1,159 @@
+=====================================================
+Tools
+=====================================================
+	-An IDE / editor of your choice that can make C++ applications
+		-Visual Studio, Eclipse, Netbeans, Emacs, VIM, notepad, etc.
+			-I'm using Eclipse for this, but any of the above work just as well
+	-A C++ compiler
+		-This is built into Visual Studio and some others.
+			-I'm using clang++ 
+	-Tiled Map Editor (mapeditor.org)
+		-Free map editor for creating all of our levels
+	-The original Cavestory assets
+		-Download the original cavestory from cavestory.org
+			-All assets are in the downloaded folder
+	-Audio tools I haven't thought about yet
+		-I'll get to this later on in the series when we need it
+	-Some kind of image editing tool (paint, paint.NET, photoshop)
+		-I'll be using either paint.NET or GIMP
+	-Github for version control / sharing the source code with all of you
+=====================================================
+Part 1
+=====================================================
+	-Download SDL2 (I use version 2.0.14) 
+		- https://www.libsdl.org/download-2.0.php
+	-Create the project
+		-In your IDE, set up the linker and the includes
+=====================================================
+Part 2
+=====================================================
+	-Problem
+		-We need a window on the screen to draw our game to
+	-Details
+		-We'll have a class dedicated entirely to graphics
+		-Cavestory's resolution is 640x480
+	-Solution
+		-create the src folder to store all the .h and .cpp diles
+		-Create graphics class
+		-Call it from main (temporarily)
+=====================================================
+Part 3
+=====================================================
+	-Problem
+		-We need a more central location for the game loop logic
+		-Events (input, closing the window, etc)
+		-Limiting FPS
+		-The rest of the game class
+	-Details
+		-Cavestory runs at 50 FPS
+	-Solution
+		-Create the game class and implement it
+		-Create the input class and implement it
+		-Add input to game loop
+		-Limit FPS
+=====================================================
+Part 4
+=====================================================	
+	-Problem
+		-We should put our comments in the header files
+		-We need to be able to draw things to the screen
+			-More specifically, our character - Quote!
+		-Our graphics class doesn't do much right now
+		-We can't load PNG files just yet
+	-Details
+		-Spritesheet for quote - MyChar.png
+		-https://www.libsdl.org/projects/SDL_image/
+		-All sprites (i think) are scaled by 2 (doubled in size)
+	-Solution
+		-Download and set up SDL_image
+		-Convert MyChar.pbm to PNG
+		-Modify graphics class to draw to the screen
+		-Implement a sprite class
+		-Add some [safe] global variables
+		-Modify game class to draw sprites
+		-Add it all into game to draw the player!
+=====================================================
+Part 5
+=====================================================
+	-Problem
+		-We need to animate our sprites
+			-now is specifically the main character "Quote"
+	-Details
+		-Quote's running animation has 3 frames each
+	-Solution
+		-Create global Vector2 struct
+		-Create the animated sprite class (extends off of sprite)
+		-Use animated sprite in the game class instead of sprite
+		-Watch Quote run endlessly
+=====================================================
+Part 6
+=====================================================
+	-Problem
+		-We need a class to hold the Player object
+		-The player needs to be able to move around the screen
+			-Changing direction
+	-Details
+		-Player timeToUpdate - 100 looks good
+		-We'll start out facing right for now
+	-Solution
+		-Make setupAnimations "protected" in AnimatedSprite
+		-Make setupAnimations and animationDone pure virtual in AnimatedSprite
+		-Create the player class and get everything working as it is now
+		-Add global enum for direction (which way Quote is facing)
+		-Add two new animations: IdleLeft and IdleRight
+		-Add movement to the player class
+		-Use the movement functions in the game class with input!
+=====================================================
+Part 7
+=====================================================
+	-Problem
+		-We need a way to represent a "Level" or a "Map"
+		-We need to draw a background on the screen
+	-Details
+		-Background is bkBlue
+		-Backgrounds are 64x64 px
+	-Solution
+		-Create the Level class
+		-Create new directory content/backgrounds
+		-Convert bkBlue.pbm to bkBlue.png	 
+		-Add the level to the game class
+		-Fix Quote's transparency
+=====================================================
+Part 8
+=====================================================
+	-Problem
+		-We need to actually draw the map in Tiled!
+		-We need an XML parsing library
+	-Details
+		-New Tiled map
+			-Orthogonal
+			-Xml
+			-Right down	
+			(all of this is x2)
+			width: 20 tiles
+			height: 16 tiles 
+			tile width: 16px
+			tile height: 16px
+		-TinyXML2: https://github.com/leethomason/tinyxml2 -> download as zip
+	-Solution
+		-Fix destRect for backgrounds
+		-Downloaded Tiled if you haven't already
+		-Create new directory content/tilesets
+		-Create new directory content/maps
+		-Convert data/stage/prtcave.pbm to png
+		-Load tileset into tiled and make the map (two different layers)
+		-Download TinyXML2 and set it up
+=====================================================
+Part 9
+=====================================================
+	-Problem
+		-Now that we have our map built, we need our program to read and understand it
+			-Before that, WE need to understand it	
+	-Details
+		-We'll parse XML with TinyXML library
+	-Solution
+		-Add SDL_DestroyRenderer (thanks Symbiotic)
+		-Create Tile class
+		-Create Tileset struct (in level.h)
+		-Add new variables to Level class
+		-Include TinyXML in level.cpp and implement LoadMap

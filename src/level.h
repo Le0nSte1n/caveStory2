@@ -6,6 +6,7 @@
 #include "globals.h"
 #include "tile.h"
 #include "tinyxml2.h"
+#include "rectangle.h"
 
 #include <sstream>
 #include <algorithm>
@@ -29,6 +30,8 @@ public:
 	void draw(Graphics& graphics);
 	void update(float elapsedTime);
 
+	std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
+
 	~Level();
 private:
 	std::string mapName_;
@@ -41,6 +44,7 @@ private:
 
 	std::vector<Tile> tileList_;
 	std::vector<Tileset> tilesets_;
+	std::vector<Rectangle> collisionRects_;	// all tile collision rectangles will go into this vecotr
 
 	/* void loadMap
 	 * Loads a map

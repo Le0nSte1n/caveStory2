@@ -29,11 +29,18 @@ public:
 
 	virtual void animationDone(std::string currentAnimation);
 	virtual void setupAnimations(); 
+
+	const float getX() const;
+	const float getY() const;
+
+
 	~Player ();
 
 private:
 	float dx_, dy_;
 	Direction facing_;
+
+	bool grounded_;	// be true if the player is on the ground, be false otherwise
 };
 
 #endif // !PLAYER_H
