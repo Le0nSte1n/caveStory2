@@ -5,6 +5,8 @@
 #include "graphics.h"
 #include "animatedSprite.h"
 #include "globals.h"
+#include "slope.h"
+
 class Player : public AnimatedSprite{
 public:
 	Player ();
@@ -27,6 +29,11 @@ public:
 	 */
 	void stopMoving();
 
+	/* void jump
+	 * Starts jumping
+	 */
+	void jump();
+
 	virtual void animationDone(std::string currentAnimation);
 	virtual void setupAnimations(); 
 
@@ -34,6 +41,11 @@ public:
 	 * Handles collisions with ALL tiles the player is colliding with 
 	 */
 	void handleTileCollisions(std::vector<Rectangle> &others);
+
+	/* void handleSlopeCollisions
+	 * Handles collisions with all slopes the player is colliding with
+	 */
+	void handleSlopeCollisions(std::vector<Slope>& others);
 
 	const float getX() const;
 	const float getY() const;

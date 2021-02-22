@@ -7,6 +7,8 @@
 #include "tile.h"
 #include "tinyxml2.h"
 #include "rectangle.h"
+#include "slope.h"
+#include "utils.h"
 
 #include <sstream>
 #include <algorithm>
@@ -32,6 +34,8 @@ public:
 
 	std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
 
+	std::vector<Slope> checkSlopeCollisions(const Rectangle& other);
+
 	const Vector2 getSpawnPoint() const;
 
 	~Level();
@@ -47,6 +51,7 @@ private:
 	std::vector<Tile> tileList_;
 	std::vector<Tileset> tilesets_;
 	std::vector<Rectangle> collisionRects_;	// all tile collision rectangles will go into this vecotr
+	std::vector<Slope> slopes_;
 
 	/* void loadMap
 	 * Loads a map

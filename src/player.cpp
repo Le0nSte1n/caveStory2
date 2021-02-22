@@ -2,6 +2,7 @@
 
 namespace player_constants{
 	const float WALK_SPEED = 0.2f;
+	const float JUMP_SPEED = 0.7f;
 
 	const float GRAVITY = 0.002f;
 	const float GRAVITY_CAP = 0.8f;
@@ -52,6 +53,14 @@ void Player::stopMoving() {
 
 }
 
+void Player::jump() {
+	if (grounded_) {
+		dy_ = 0;
+		dy_ -= player_constants::JUMP_SPEED;
+		grounded_ = false;
+	}
+}
+
 void Player::handleTileCollisions(std::vector<Rectangle> &others) {
 	// Figure out what side the collision happened on and move the player accordingly
 	for (int i = 0; i < others.size(); i++) {
@@ -69,29 +78,56 @@ void Player::handleTileCollisions(std::vector<Rectangle> &others) {
 		// Draw a diagram to understand it
 			switch (collisionSide) {
 			case sides::TOP:
-				y_ = others[i].getBottom() + 1; 
 				dy_ = 0;
-				printf("Collision at top\n");
+				y_ = others[i].getBottom() + 1;
+				if (grounded_) {
+					// Handles the jitter when the player collides at Top standing on a slope
+					dx_ = 0;
+					x_ -= facing_ == RIGHT ? 0.5f : -0.5f;
+				}
+				//printf("Collision at top\n");
 				break;
 			case sides::BOTTOM:
 				y_ = others[i].getTop() - boundingBox_.getHeight() - 1;
 				dy_ = 0;
 				grounded_ = true;
-				printf("Collision at bottom\n");
+				//printf("Collision at bottom\n");
 				break;
 			case sides::LEFT:
 				x_ = others[i].getRight() + 1;
-				//dx_ = 0;
-				printf("Collision at left\n");
+				dx_ = 0;
+				//printf("Collision at left\n");
 				break;
 			case sides::RIGHT:
 				x_ = others[i].getLeft() - boundingBox_.getWidth() - 1;
-				//dx_ = 0;
-				printf("Collision at right\n");
+				dx_ = 0;
+				//printf("Collision at right\n");
 				break;
 			}
 		}
 	}
+}
+
+void Player::handleSlopeCollisions(std::vector<Slope>& others) {
+	for (int i = 0; i < others.size(); i++) {
+		// Calculate where on the slope the player's bottom center is touching
+		// and use y = slope * x + b to figure out the y position to place him at
+		// First calculate "b" (slope interpret) using one of the points (b = y - slope * x)
+		int b = (others[i].getP1().y - (others[i].getSlope() * fabs(others[i].getP1().x)));
+
+		// Now get player's center x
+		int centerX = boundingBox_.getCenterX();
+
+		// Now pass x (centerX) into the equation y = slope * x + b to get the new y position
+		int newY = (others[i].getSlope() * centerX) + b - 8;	// 8 is temporary to fix a problem
+
+		// Reposition the player 
+		if (grounded_) {
+			y_ = newY - boundingBox_.getHeight();
+			grounded_ = true;
+		}
+	}
+
 }
 
 void Player::draw(Graphics& graphics) {

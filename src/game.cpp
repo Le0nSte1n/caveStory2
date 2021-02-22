@@ -29,37 +29,37 @@ void Game::gameLoop() {
 		input.beginNewFrame();	//	reset pressed keys and released keys
 
 		if (SDL_PollEvent(&event)) {
-			//switch (event.type){
-			//case SDL_KEYDOWN:
-			//	if (event.key.repeat == 0)	// not holding down a key
-			//		input.keyDownEvent(event);
-			//	break;
-			//case SDL_KEYUP:
-			//	input.keyDownEvent(event);
-			//	break;
-			//case SDL_QUIT:
-			//	return; 
-			//	break;
-			//default:
-			//	break;
-			//}
 			if (event.type == SDL_KEYDOWN) {
 				if (event.key.repeat == 0)	// not holding down a key
 					input.keyDownEvent(event);
 			}
-			else if (event.type == SDL_KEYUP) {
+			else if (event.type == SDL_KEYUP)
 				input.keyUpEvent(event);
-			}
-			else if (event.type == SDL_QUIT) {
+			else if (event.type == SDL_QUIT)
 				return;
-			}
 		}
-		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true)	// quit out of the game loop
+		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE))	// quit out of the game loop
 			return;
-		else if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true)
+		else if (input.isKeyHeld(SDL_SCANCODE_LEFT)) {
 			player_.moveLeft();
-		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true)
+			//printf("move left\n");
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT)) {
 			player_.moveRight();
+			//printf("move right\n");
+		}
+
+		//if (input.wasKeyPressed(SDL_SCANCODE_Z))
+		//	printf("Z wasKeyPressed\n");
+		//if (input.isKeyHeld(SDL_SCANCODE_Z))
+		//	printf("Z isKeyHeld\n");
+		//if (input.wasKeyReleased(SDL_SCANCODE_Z))
+		//	printf("Z wasKeyReleased\n");
+
+		if (input.wasKeyPressed(SDL_SCANCODE_Z) && input.isKeyHeld(SDL_SCANCODE_Z)) {
+			player_.jump();
+			//printf("jump\n");
+		}
 
 		if (!input.isKeyHeld(SDL_SCANCODE_LEFT) && !input.isKeyHeld(SDL_SCANCODE_RIGHT))
 			player_.stopMoving();
@@ -96,7 +96,7 @@ void Game::update(float elapsedTime) {
 	level_.update(elapsedTime);
 
 	// Check collisions
-	int n = level_.checkTileCollisions(player_.getBoundingBox()).size();
+	//int n = level_.checkTileCollisions(player_.getBoundingBox()).size();
 	//printf("%d\n", n);
 	//player_.getBoundingBox().print();
 	std::vector<Rectangle> others;
@@ -104,4 +104,10 @@ void Game::update(float elapsedTime) {
 		//Player collided with at least one tile. Handle it.
 		player_.handleTileCollisions(others);
 	}
+	// Check slope collisions
+	std::vector<Slope> otherSlopes;
+	if ((otherSlopes = level_.checkSlopeCollisions(player_.getBoundingBox())).size() > 0) {
+		player_.handleSlopeCollisions(otherSlopes);
+	}
+	
 }
