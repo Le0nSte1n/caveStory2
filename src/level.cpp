@@ -160,7 +160,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
 	}
 
 	// Parse out the collisions
-	XMLElement* pObjectGroup = mapNode->FirstChildElement("objectGroup");
+	XMLElement* pObjectGroup = mapNode->FirstChildElement("objectgroup");
 	if (pObjectGroup != nullptr) {
 		while (pObjectGroup) {
 			const char* name = pObjectGroup->Attribute("name");
@@ -169,24 +169,26 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
 			if (ss.str() == "collisions") {
 				XMLElement* pObject = pObjectGroup->FirstChildElement("object");
 				if (pObject != nullptr) {
-					float x, y, width, height;
-					x = pObject->FloatAttribute("x");
-					y = pObject->FloatAttribute("y");
-					width = pObject->FloatAttribute("width");
-					height = pObject->FloatAttribute("height");
-					collisionRects_.push_back(Rectangle(
-						std::ceil(x)* globals::SPRITE_SCALE,
-						std::ceil(y) * globals::SPRITE_SCALE,
-						std::ceil(width)* globals::SPRITE_SCALE,
-						std::ceil(height)* globals::SPRITE_SCALE
-					));	// Using ceil functiont to convert the parameters from float to integer
+					while (pObject) {
+						float x, y, width, height;
+						x = pObject->FloatAttribute("x");
+						y = pObject->FloatAttribute("y");
+						width = pObject->FloatAttribute("width");
+						height = pObject->FloatAttribute("height");
+						collisionRects_.push_back(Rectangle(
+							std::ceil(x) * globals::SPRITE_SCALE,
+							std::ceil(y) * globals::SPRITE_SCALE,
+							std::ceil(width) * globals::SPRITE_SCALE,
+							std::ceil(height) * globals::SPRITE_SCALE
+						));	// Using ceil functiont to convert the parameters from float to integer
 
-					pObject = pObject->NextSiblingElement("object");
+						pObject = pObject->NextSiblingElement("object");
+					}
 				}
 			}
 			// Other objectives go here with an else if (ss.str() == "whatever") 
 
-			pObjectGroup = pObjectGroup->NextSiblingElement("objectGroup");
+			pObjectGroup = pObjectGroup->NextSiblingElement("objectgroup");
 		}
 	}
 

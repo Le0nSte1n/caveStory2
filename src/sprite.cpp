@@ -15,6 +15,7 @@ Sprite::Sprite(Graphics& graphics, const std::string& filePath, int sourceX,
 		printf("\nError: Unable to load image\n");
 
 	boundingBox_ = Rectangle(x_, y_, width * globals::SPRITE_SCALE, height * globals::SPRITE_SCALE);
+	
 
 }
 
@@ -33,6 +34,7 @@ void Sprite::update() {
 }
 
 const Rectangle Sprite::getBoundingBox() const {
+//Rectangle Sprite::getBoundingBox(){
 	return boundingBox_;
 }
 
@@ -47,8 +49,14 @@ const sides::Side Sprite::getCollisionSide(Rectangle& other) const {
 
 	int vals[4] = { abs(amtRight), abs(amtLeft), abs(amtBottom), abs(amtTop) };
 	//std::sort(vals, vals + 4, [](int a, int b) {return a < b; });
-	std::sort(vals, vals + 4, std::greater<int>());
+	//std::sort(vals, vals + 4, std::greater<int>());
+
 	int lowest = vals[0];
+	for (int i = 0; i < 4; i++) {
+		if (vals[i] < lowest) {
+			lowest = vals[i];
+		}
+	}
 
 	return
 		lowest == abs(amtRight) ? sides::RIGHT :

@@ -52,6 +52,48 @@ void Player::stopMoving() {
 
 }
 
+void Player::handleTileCollisions(std::vector<Rectangle> &others) {
+	// Figure out what side the collision happened on and move the player accordingly
+	for (int i = 0; i < others.size(); i++) {
+		sides::Side collisionSide = Sprite::getCollisionSide(others[i]);
+		if (collisionSide != sides::NONE) {
+		// The y increases from 0 at the top to y at the bottom
+		// It is not like the normal situation
+		// Normal:                  Screen:  (0,0) ________x
+		//           y|                           |
+		//            |                           |
+		//            |________x                 y|
+		//        (0,0)
+		// So it's y_ = others[i].getBottom() + 1; rather than y_ = others[i].getBottom() - 1;
+		// As to y_ = others[i].getTop() - boundingBox_.getTop() - 1;
+		// Draw a diagram to understand it
+			switch (collisionSide) {
+			case sides::TOP:
+				y_ = others[i].getBottom() + 1; 
+				dy_ = 0;
+				printf("Collision at top\n");
+				break;
+			case sides::BOTTOM:
+				y_ = others[i].getTop() - boundingBox_.getHeight() - 1;
+				dy_ = 0;
+				grounded_ = true;
+				printf("Collision at bottom\n");
+				break;
+			case sides::LEFT:
+				x_ = others[i].getRight() + 1;
+				//dx_ = 0;
+				printf("Collision at left\n");
+				break;
+			case sides::RIGHT:
+				x_ = others[i].getLeft() - boundingBox_.getWidth() - 1;
+				//dx_ = 0;
+				printf("Collision at right\n");
+				break;
+			}
+		}
+	}
+}
+
 void Player::draw(Graphics& graphics) {
 	AnimatedSprite::draw(graphics, x_, y_);
 }

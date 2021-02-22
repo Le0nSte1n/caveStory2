@@ -30,6 +30,11 @@ public:
 	virtual void animationDone(std::string currentAnimation);
 	virtual void setupAnimations(); 
 
+	/* void handleTileCollision
+	 * Handles collisions with ALL tiles the player is colliding with 
+	 */
+	void handleTileCollisions(std::vector<Rectangle> &others);
+
 	const float getX() const;
 	const float getY() const;
 

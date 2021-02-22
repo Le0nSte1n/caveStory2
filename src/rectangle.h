@@ -7,7 +7,9 @@
 
 class Rectangle{
 public:
-	Rectangle();
+	Rectangle() {
+
+	}
 
 	Rectangle(int x, int y, int width, int height) :
 		x_(x),
@@ -31,8 +33,8 @@ public:
 		return
 			side == sides::TOP ? getTop() :
 			side == sides::BOTTOM ? getBottom() :
-			side == sides::LEFT ? getRight() :
-			side == sides::RIGHT ? getLeft() :
+			side == sides::LEFT ? getLeft() :
+			side == sides::RIGHT ? getRight() :
 			sides::NONE;
 	}
 	/* bool collidesWith
@@ -59,7 +61,13 @@ public:
 		return (x_ >= 0 && y_ >= 0 && width_ >= 0 && height_ >= 0);
 	}
 
-	~Rectangle();
+	void print() {
+		printf("%d, %d, %d, %d\n", x_, y_, width_, height_);
+	}
+
+	~Rectangle() {
+
+	}
 
 private:
 	int x_, y_, width_, height_;

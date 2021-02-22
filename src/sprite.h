@@ -11,6 +11,10 @@
 
 #include "graphics.h"
 #include "globals.h"
+#include "rectangle.h"
+
+#include <algorithm>
+#include <cmath>
 
 class Sprite{
 public:
@@ -27,10 +31,27 @@ public:
 	virtual void update();
 	void draw(Graphics& graphics, int x, int y);
 
+	const Rectangle getBoundingBox() const;
+	//Rectangle getBoundingBox();
+
+	/* Side getCollisionSide
+	 * Determine which side the collision happened on
+	 */
+	const sides::Side getCollisionSide(Rectangle& other) const;
+
 protected:
 	SDL_Rect sourceRect_;
 	SDL_Texture* sprite_sheet_;
+	//       _________ 
+	//      |   ___   |
+	//      |  |___|  |
+	//      |  --|--  |
+	//      |   / \   |
+	//      |_________|
+	Rectangle boundingBox_;	// the rectangle goes around the entire player sprite
+
 	float x_, y_;
+
 
 private:
 
