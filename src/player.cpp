@@ -11,8 +11,8 @@ Player::Player() {
 
 }
 
-Player::Player(Graphics& graphics, float x, float y) :
-	AnimatedSprite(graphics, "content\\sprites\\MyChar.png", 0, 0, 16, 16, x, y, 100),
+Player::Player(Graphics& graphics, Vector2 spawnPoint):
+	AnimatedSprite(graphics, "content/sprites/MyChar.png", 0, 0, 16, 16, spawnPoint.x, spawnPoint.y, 100),
 	dx_(0),
 	dy_(0),
 	facing_(RIGHT),

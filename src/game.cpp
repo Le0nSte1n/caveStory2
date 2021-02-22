@@ -1,6 +1,5 @@
 #include "game.h"
 
-
 namespace {
 	const int FPS = 50;	// frames per second
 	const int MAX_FRAME_TIME = 5 * 1000 / FPS;	// max time a frame is allowed to last
@@ -19,9 +18,10 @@ void Game::gameLoop() {
 	Graphics graphics;
 	Input input;
 	SDL_Event event;
-	
-	player_ = Player(graphics, 280, 252);
+
 	level_ = Level("Map 1", Vector2(100, 100), graphics);
+	std::cout << level_.getSpawnPoint().x << " " << level_.getSpawnPoint().y << std::endl;
+	player_ = Player(graphics, level_.getSpawnPoint());
 
 	int LAST_UPDATE_TIME_MS = SDL_GetTicks();
 	// start the game loop

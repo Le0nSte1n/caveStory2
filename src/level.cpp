@@ -65,6 +65,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
 	// Loading the tilesets 
 	XMLElement* pTileset = mapNode->FirstChildElement("tileset");
 	if (pTileset != nullptr) {
+		printf("tileset\n");
 		while (pTileset) {
 			int firstgid;
 			const char* source = pTileset->FirstChildElement("image")->Attribute("source");
@@ -83,6 +84,7 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
 	// Loading the layers
 	XMLElement* pLayer = mapNode->FirstChildElement("layer");
 	if (pLayer != nullptr) {
+		printf("layer\n");
 		while (pLayer) {
 			XMLElement* pData = pLayer->FirstChildElement("data");
 			if (pData != nullptr) {
@@ -187,6 +189,26 @@ void Level::loadMap(std::string mapName, Graphics& graphics) {
 				}
 			}
 			// Other objectives go here with an else if (ss.str() == "whatever") 
+			else if (ss.str() == "spawn points") {
+				XMLElement* pObject = pObjectGroup->FirstChildElement("object");
+				//printf("Hi\n");
+				if (pObject != nullptr) {
+					//printf("Hi\n");
+					while (pObject) {
+						float x = pObject->FloatAttribute("x");
+						float y = pObject->FloatAttribute("y");
+						const char* name = pObject->Attribute("name");
+						std::stringstream ss;
+						ss << name;
+						if (ss.str() == "player") {
+							spawnPoint_ = Vector2(std::ceil(x) * globals::SPRITE_SCALE,
+								std::ceil(y) * globals::SPRITE_SCALE);
+						}
+
+						pObject = pObject->NextSiblingElement("object");
+					}
+				}
+			}
 
 			pObjectGroup = pObjectGroup->NextSiblingElement("objectgroup");
 		}
@@ -202,6 +224,10 @@ std::vector<Rectangle> Level::checkTileCollisions(const Rectangle& other) {
 		}
 	}
 	return others;
+}
+
+const Vector2 Level::getSpawnPoint() const {
+	return spawnPoint_;
 }
 
 Level::~Level(){

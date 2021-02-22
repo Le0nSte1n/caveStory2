@@ -32,6 +32,8 @@ public:
 
 	std::vector<Rectangle> checkTileCollisions(const Rectangle& other);
 
+	const Vector2 getSpawnPoint() const;
+
 	~Level();
 private:
 	std::string mapName_;

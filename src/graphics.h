@@ -12,6 +12,8 @@
 #include <map>
 #include <string>
 #include <SDL.h>
+#include <iostream>
+#include <direct.h>
 
 class Graphics {
 public:
