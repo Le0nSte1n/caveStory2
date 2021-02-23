@@ -20,7 +20,7 @@ void Game::gameLoop() {
 	SDL_Event event;
 
 	level_ = Level("Map 1", Vector2(100, 100), graphics);
-	std::cout << level_.getSpawnPoint().x << " " << level_.getSpawnPoint().y << std::endl;
+	//std::cout << level_.getSpawnPoint().x << " " << level_.getSpawnPoint().y << std::endl;
 	player_ = Player(graphics, level_.getSpawnPoint());
 
 	int LAST_UPDATE_TIME_MS = SDL_GetTicks();

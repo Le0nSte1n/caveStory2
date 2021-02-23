@@ -9,6 +9,7 @@
 #include "rectangle.h"
 #include "slope.h"
 #include "utils.h"
+#include "animatedTile.h"
 
 #include <sstream>
 #include <algorithm>
@@ -52,6 +53,8 @@ private:
 	std::vector<Tileset> tilesets_;
 	std::vector<Rectangle> collisionRects_;	// all tile collision rectangles will go into this vecotr
 	std::vector<Slope> slopes_;
+	std::vector<AnimatedTile> animatedTileList_;
+	std::vector<AnimatedTileInfo> animatedTileInfos_;
 
 	/* void loadMap
 	 * Loads a map
@@ -59,6 +62,7 @@ private:
 	 */
 	void loadMap(std::string mapName, Graphics& graphics);
 
+	Vector2 getTilesetPosition(Tileset tls, int gid, int tileWidth, int tileHeight);
 };
 
 // Tileset structure

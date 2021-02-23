@@ -15,12 +15,13 @@ public:
 	void draw();
 	~Tile();
 
+protected:
+	Vector2 position_;	// the position on the map of the tile
+	Vector2 size_;	// the size of the tile
+	SDL_Texture* tileset_;	// each tile comes from a tileset
+	Vector2 tilesetPosition_;	// the position on the tileset of the tile 
 
 private:
-	SDL_Texture* tileset_;	// each tile comes from a tileset
-	Vector2 size_;	// the size of the tile
-	Vector2 tilesetPosition_;	// the position on the tileset of the tile 
-	Vector2 position_;	// the position on the map of the tile
 };
 
 #endif // !TILE_H

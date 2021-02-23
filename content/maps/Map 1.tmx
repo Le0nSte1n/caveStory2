@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.3029" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" infinite="0" nextobjectid="41">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="37">
  <tileset firstgid="1" name="PrtCave" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="../tilesets/PrtCave.png" width="256" height="80"/>
  </tileset>
- <layer name="background" width="20" height="16">
+ <tileset firstgid="81" name="NpcSym" tilewidth="16" tileheight="16" tilecount="300" columns="20">
+  <image source="../tilesets/NpcSym.png" width="320" height="240"/>
+  <tile id="18">
+   <animation>
+    <frame tileid="18" duration="10"/>
+    <frame tileid="19" duration="10"/>
+   </animation>
+  </tile>
+  <tile id="26">
+   <animation>
+    <frame tileid="26" duration="100"/>
+    <frame tileid="27" duration="100"/>
+    <frame tileid="28" duration="100"/>
+    <frame tileid="29" duration="100"/>
+    <frame tileid="30" duration="100"/>
+    <frame tileid="31" duration="100"/>
+    <frame tileid="32" duration="100"/>
+    <frame tileid="33" duration="100"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer id="1" name="background" width="20" height="16">
   <data>
    <tile gid="34"/>
    <tile gid="33"/>
@@ -327,7 +348,7 @@
    <tile gid="49"/>
   </data>
  </layer>
- <layer name="Tile Layer 1" width="20" height="16">
+ <layer id="2" name="Tile Layer 1" width="20" height="16">
   <data>
    <tile/>
    <tile/>
@@ -482,8 +503,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="99"/>
+   <tile gid="107"/>
    <tile/>
    <tile/>
    <tile/>
@@ -651,45 +672,41 @@
    <tile/>
   </data>
  </layer>
- <objectgroup name="collisions">
-  <object id="1" x="144.823" y="17.4994" width="14.1805" height="14.4823"/>
+ <objectgroup id="3" name="collisions">
+  <object id="1" x="147.823" y="17.1661" width="14.1805" height="14.4823"/>
   <object id="2" x="144.219" y="64.8685" width="15.3874" height="14.4823"/>
   <object id="3" x="111.634" y="79.9541" width="80.2559" height="15.3874"/>
-  <object id="4" x="58.2308" y="28.0594" width="23.5337" height="107.41"/>
-  <object id="5" x="49.4033" y="126.013" width="60.041" height="16.5943"/>
-  <object id="8" x="194.493" y="144.874" width="15.3874" height="14.1805"/>
+  <object id="4" x="54.5641" y="28.0594" width="23.5337" height="107.41"/>
+  <object id="5" x="51.4033" y="126.18" width="60.041" height="16.5943"/>
+  <object id="6" x="105.41" y="132.116" width="6.03427" height="58.2308"/>
   <object id="9" x="209.088" y="128.228" width="31.0765" height="14.784"/>
-  <object id="11" x="174.089" y="25.6457" width="12.0685" height="37.7142"/>
-  <object id="14" x="238.052" y="98.6604" width="11.4651" height="32.2834"/>
-  <object id="15" x="111.6" y="189.502" width="93.833" height="13.2754"/>
-  <object id="16" x="206.372" y="161.719" width="7.84456" height="25.6457"/>
-  <object id="24" x="100.601" y="17.4475" width="44.1755" height="14.6633"/>
-  <object id="25" x="81.8546" y="32.6676" width="30.069" height="20.046"/>
-  <object id="26" x="82.2259" y="53.4561" width="12.436" height="5.56834"/>
-  <object id="27" x="159.997" y="31.3683" width="13.5496" height="5.56834"/>
-  <object id="28" x="192.108" y="90.3928" width="36.9367" height="5.19712"/>
-  <object id="29" x="226.075" y="96.5179" width="11.8791" height="4.45467"/>
-  <object id="32" x="95.5" y="136.5" width="14.25" height="54"/>
-  <object id="35" x="119.25" y="177.75" width="0.5"/>
-  <object id="39" x="131.25" y="146.75" width="39.25" height="10"/>
+  <object id="11" x="175.089" y="25.6457" width="12.0685" height="37.7142"/>
+  <object id="14" x="240.719" y="96.9937" width="11.4651" height="32.2834"/>
+  <object id="15" x="113.017" y="189.919" width="93.833" height="13.2754"/>
+  <object id="24" x="106.268" y="17.4475" width="44.1755" height="14.6633"/>
+  <object id="25" x="78.1879" y="32.3343" width="30.069" height="20.046"/>
+  <object id="26" x="78.8926" y="53.4561" width="12.436" height="5.56834"/>
+  <object id="27" x="161.33" y="28.7016" width="13.5496" height="5.56834"/>
+  <object id="28" x="193.108" y="86.7261" width="36.9367" height="5.19712"/>
+  <object id="29" x="230.075" y="92.1846" width="11.8791" height="4.45467"/>
+  <object id="32" x="131.667" y="145.333" width="40.3333" height="13.3333"/>
+  <object id="35" x="206" y="154.667" width="16.6667" height="36.6667"/>
+  <object id="36" x="194.667" y="144.333" width="15.3333" height="15.3333"/>
  </objectgroup>
- <objectgroup color="#00ff00" name="spawn points">
+ <objectgroup color="#00ff00" id="4" name="spawn points">
   <object id="17" name="player" x="158.337" y="136.764" width="2.57298" height="2.77091">
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup name="slopes">
-  <object id="19" x="184.753" y="189.49">
+ <objectgroup id="5" name="slopes">
+  <object id="19" x="185.336" y="189.49">
    <polyline points="0,0 22.4892,-14.3113"/>
   </object>
-  <object id="20" x="110.971" y="175.704">
+  <object id="20" x="111.721" y="177.037">
    <polyline points="0,0 22.3203,13.7164"/>
   </object>
-  <object id="21" x="78.7142" y="112.154">
+  <object id="21" x="78.2142" y="113.737">
    <polyline points="0,0 31.1847,14.1749"/>
-  </object>
-  <object id="22" x="225.633" y="128.809">
-   <polyline points="0,0 13.6499,-6.29994"/>
   </object>
   <object id="23" x="159.913" y="65.0994">
    <polyline points="0,0 14.1749,-6.61494"/>

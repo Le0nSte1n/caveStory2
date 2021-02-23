@@ -28,7 +28,7 @@ SDL_Surface* Graphics::loadImage(const std::string& filePath) {
 				pwd[i] = '/';
 		}
 		pwd = pwd + "/" + fPath;
-		std::cout << pwd.c_str() << std::endl;
+		//std::cout << pwd.c_str() << std::endl;
 		spriteSheets_[filePath] = IMG_Load(pwd.c_str());
 	}
 	return spriteSheets_[filePath];

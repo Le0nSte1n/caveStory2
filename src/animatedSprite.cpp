@@ -80,8 +80,7 @@ void AnimatedSprite::update(float elapsedTime) {
 		else {
 			if (currentAnimationOnce_ == true)
 				setVisible(false);
-			frameIndex_ = 0;	// set frameIndex to the beginning
-			animationDone(currentAnimation_);	// the current animation finished
+			stopAnimation();
 		}
 	}
 }
